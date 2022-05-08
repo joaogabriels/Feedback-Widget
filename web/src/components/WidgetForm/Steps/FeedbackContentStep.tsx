@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { ArrowLeft, ArrowsLeftRight, Camera } from "phosphor-react";
 import { FeedbackType, feedbackTypes } from "..";
 import { CloseButton } from "../../CloseButton";
-import { ScreenShotButton } from "../ScreenshotButton";
+import { ScreenshotButton } from "../ScreenshotButton";
 import { api } from "../../../lib/api";
 import { Loading } from "../../Loading";
 
@@ -12,7 +12,7 @@ interface FeedbackContentStepProps{
     onFeedbackSent: () => void;
 }
 
-async function FeedbackContentStep(props: FeedbackContentStepProps){
+function FeedbackContentStep(props: FeedbackContentStepProps){
     const [screenshot, setScreenshot] = useState<string | null>(null);
     const [comment, setComment] = useState("");
     const [isSendingFeedback, setIsSendingFeedback] = useState(false);
@@ -20,12 +20,12 @@ async function FeedbackContentStep(props: FeedbackContentStepProps){
     
     const feedbackTypeInfo = feedbackTypes[props.feedbackType]
 
-    await function handleSubmitFeedback(event: FormEvent){
+    async function handleSubmitFeedback(event: FormEvent){
         event.preventDefault();
 
         setIsSendingFeedback(true);
 
-        api.post('/feedbacks', {
+        await api.post('/feedbacks', {
             type: props.feedbackType,
             comment,
             screenshot,
@@ -62,14 +62,14 @@ async function FeedbackContentStep(props: FeedbackContentStepProps){
                 />
                 
                 <footer className="flex gap-2 mt-2">
-                    <ScreenShotButton 
+                    <ScreenshotButton 
                         onScreenshotTook={setScreenshot}
                         screenshot={screenshot}
                     />
                     
                     <button
                         type="submit"
-                        disabled={comment.length === 0 || isSendingFeedback}
+                        disabled={comment.length === 0}
                         className="p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 transition-colors disabled:opacity-50 disabled:hover:bg-brand-500"
                     >
                         {isSendingFeedback ? <Loading/> : "Enviar feedback"}

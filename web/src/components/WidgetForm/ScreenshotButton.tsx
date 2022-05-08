@@ -9,7 +9,7 @@ interface ScreenShotButtonProps {
 }
 
 
-export function ScreenShotButton(props: ScreenShotButtonProps) {
+export function ScreenshotButton(props: ScreenShotButtonProps) {
     const [isTakingScreenShot, setIsTakingScreenShot] = useState(false)
     
     
