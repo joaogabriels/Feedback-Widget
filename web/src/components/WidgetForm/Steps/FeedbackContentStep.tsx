@@ -12,7 +12,7 @@ interface FeedbackContentStepProps{
     onFeedbackSent: () => void;
 }
 
-function FeedbackContentStep(props: FeedbackContentStepProps){
+export function FeedbackContentStep(props: FeedbackContentStepProps){
     const [screenshot, setScreenshot] = useState<string | null>(null);
     const [comment, setComment] = useState("");
     const [isSendingFeedback, setIsSendingFeedback] = useState(false);
